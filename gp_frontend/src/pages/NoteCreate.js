@@ -29,7 +29,7 @@ export default function NewNote() {
                 </div>
                 <div className="mb-3">
                     <label>Content</label>
-                    <textarea className="form-control" value={content} onChange={e => setContent(e.target.value)} required />
+                    <textarea className="form-control" rows="8" value={content} onChange={e => setContent(e.target.value)} required />
                 </div>
                 <button className="btn btn-success me-2">Save</button>
                 <button type="button" className="btn btn-secondary" onClick={() => navigate("/notes")}>Cancel</button>

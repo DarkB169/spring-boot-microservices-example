@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import API from "../../api/api";
 
 const AdminUserEdit = () => {
     const { id } = useParams();
@@ -8,7 +8,7 @@ const AdminUserEdit = () => {
     const [user, setUser] = useState({ username: "", email: "" });
 
     useEffect(() => {
-        axios.get(`/users/${id}`, {
+        API.get(`/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -22,7 +22,7 @@ const AdminUserEdit = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`/users/${id}`, user, {
+        API.put(`/users/${id}`, user, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

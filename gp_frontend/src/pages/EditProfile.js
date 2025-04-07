@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 
 export default function EditProfile() {
     const navigate = useNavigate();
@@ -16,12 +16,11 @@ export default function EditProfile() {
         currentPassword: false,
     });
 
-    const BASE_URL = "http://localhost:8080";
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get(`${BASE_URL}/users/me`, {
+                const res = await API.get("/users/me", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
@@ -74,7 +73,7 @@ export default function EditProfile() {
         }
 
         try {
-            const res = await axios.put(`${BASE_URL}/users/me`, payload, config);
+            const res = await API.put("/users/me", payload, config);
 
             if (userData.newPassword ||  userData.email) {
                 alert("Password updated. You need to log in again.");

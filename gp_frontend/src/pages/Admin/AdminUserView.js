@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import API from "../../api/api";
 
 const AdminUserView = () => {
     const { id } = useParams();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        axios.get(`/users/${id}`, {
+        API.get(`/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

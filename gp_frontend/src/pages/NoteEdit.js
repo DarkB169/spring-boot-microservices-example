@@ -49,6 +49,7 @@ export default function EditNote() {
                     <label>Content</label>
                     <textarea
                         className="form-control"
+                        rows="8"
                         name="content"
                         value={note.content}
                         onChange={handleChange}

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "../../api/api";
 
 const AdminUserList = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("/users", {
+        API.get("/users", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -16,7 +16,10 @@ const AdminUserList = () => {
 
     return (
         <div className="container mt-4">
-            <h3>User Management</h3>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h3>User Management</h3>
+                <Link to="/admin/notes" className="btn btn-outline-primary">Go to Note Management</Link>
+            </div>
             <table className="table table-striped mt-3">
                 <thead>
                 <tr>
@@ -35,6 +38,7 @@ const AdminUserList = () => {
                         <td>
                             <Link to={`/admin/users/view/${user.id}`} className="btn btn-sm btn-info me-2">View</Link>
                             <Link to={`/admin/users/edit/${user.id}`} className="btn btn-sm btn-warning me-2">Edit</Link>
+                            <Link to={`/admin/notes/view/user/${user.id}`} className="btn btn-sm btn-warning me-2">View Notes</Link>
                             <button
                                 className="btn btn-sm btn-danger"
                                 onClick={() => handleDelete(user.id)}
@@ -52,7 +56,7 @@ const AdminUserList = () => {
     function handleDelete(id) {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
 
-        axios
+        API
             .delete(`/users/${id}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -69,6 +69,19 @@ public class NoteController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/view/note/{id}")
+    public ResponseEntity<NoteDTO> getNoteById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(noteService.getNoteById(id));
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/admin/edit/note/{id}")
+    public ResponseEntity<NoteDTO> adminUpdate(@PathVariable("id") String id, @RequestBody NoteDTO dto) {
+        return ResponseEntity.ok(noteService.updateNote(id, dto));
+    }
+
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<Void> deleteNoteAsAdmin(@PathVariable("id") String id) {
         noteService.deleteNote(id);
